@@ -24,15 +24,21 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Generate sitemap
+      # Step 4: Configure Git user
+      - name: Configure Git user
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # Step 5: Generate sitemap
       - name: Generate sitemap
         run: node sitemap-generator.js
 
-      # Step 5: Build the project
+      # Step 6: Build the project
       - name: Build project
         run: npm run build
 
-      # Step 6: Deploy to GitHub Pages
+      # Step 7: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
