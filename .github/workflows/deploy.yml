@@ -24,22 +24,26 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Configure Git user
+      # Step 4: Install gh-pages
+      - name: Install gh-pages
+        run: npm install gh-pages --save-dev
+
+      # Step 5: Configure Git user
       - name: Configure Git user
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      # Step 5: Generate sitemap
+      # Step 6: Generate sitemap
       - name: Generate sitemap
         run: node sitemap-generator.js
 
-      # Step 6: Build the project
+      # Step 7: Build the project
       - name: Build project
         run: npm run build
 
-      # Step 7: Deploy to GitHub Pages
+      # Step 8: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh-pages -d build --repo https://github.com/${{ github.repository }}.git
+        run: npx gh-pages -d build --repo https://github.com/${{ github.repository }}.git
